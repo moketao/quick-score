@@ -1,13 +1,13 @@
 # QuickScore
 
+> `quick-score` is a JavaScript string-scoring and fuzzy-matching library based on the Quicksilver algorithm, designed for smart auto-complete.
+
 [![Build Status][build-badge]][build]
 [![Code Coverage][coverage-badge]][coverage]
 [![Dependencies][dependencies-badge]][dependencies]
 [![Minzip Size][size-badge]][size]
 [![MIT License][license-badge]][license]
 <!--[![Package][package-badge]][package]-->
-
-> `quick-score` is a JavaScript string-scoring and fuzzy-matching library based on the Quicksilver algorithm, designed for smart auto-complete.
 
 QuickScore improves on the original Quicksilver algorithm by tuning the scoring for long strings, such as webpage titles or URLs, so that the order of the search results makes more sense.  It's used by the [QuicKey extension for Chrome](https://chrome.google.com/webstore/detail/quickey-%E2%80%93-the-quick-tab-s/ldlghkoiihaelfnggonhjnfiabmaficg) to enable users to easily find an open tab via search.
 
@@ -172,7 +172,7 @@ See the [API docs](https://fwextensions.github.io/quick-score/) for a full descr
 
 ## License
 
-[MIT](./LICENSE) © John Dunning
+[MIT](./LICENSE) © [John Dunning](https://github.com/fwextensions)
 
 
 [build-badge]: https://img.shields.io/travis/com/fwextensions/quick-score.svg?style=flat-square
