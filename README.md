@@ -175,15 +175,15 @@ See the [API docs](https://fwextensions.github.io/quick-score/) for a full descr
 [MIT](./LICENSE) © John Dunning
 
 
-[build-badge]: https://travis-ci.com/fwextensions/quick-score.svg
+[build-badge]: https://img.shields.io/travis/com/fwextensions/quick-score.svg?style=flat-square
 [build]: https://travis-ci.com/fwextensions/quick-score
-[coverage-badge]: https://codecov.io/gh/fwextensions/quick-score/graph/badge.svg
+[coverage-badge]: https://img.shields.io/codecov/c/github/fwextensions/quick-score.svg?style=flat-square 
 [coverage]: https://codecov.io/gh/fwextensions/quick-score
-[dependencies-badge]: https://img.shields.io/david/fwextensions/quick-score.svg
+[dependencies-badge]: https://img.shields.io/david/fwextensions/quick-score.svg?style=flat-square
 [dependencies]: https://www.npmjs.com/package/quick-score
-[license-badge]: https://img.shields.io/npm/l/quick-score.svg
+[license-badge]: https://img.shields.io/npm/l/quick-score.svg?style=flat-square
 [license]: https://github.com/fwextensions/quick-score/blob/master/LICENSE
-[size-badge]: https://img.shields.io/bundlephobia/minzip/quick-score.svg
+[size-badge]: https://img.shields.io/bundlephobia/minzip/quick-score.svg?style=flat-square
 [size]: https://www.npmjs.com/package/quick-score
-[package-badge]: https://img.shields.io/npm/v/quick-score.svg
+[package-badge]: https://img.shields.io/npm/v/quick-score.svg?style=flat-square
 [package]: https://www.npmjs.com/package/quick-score
