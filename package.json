@@ -23,7 +23,7 @@
     "lib"
   ],
   "scripts": {
-    "prebuild": "npm run test",
+    "prebuild": "npm test",
     "build": "npm run build:lib && npm run build:docs",
     "build:lib": "rimraf dist lib && rollup -c",
     "build:docs": "rimraf docs && jsdoc -c jsdoc/config.json",
@@ -37,7 +37,7 @@
     "env": {
       "test": {
         "presets": [
-          "env"
+          "@babel/preset-env"
         ]
       }
     }
@@ -48,24 +48,26 @@
       "src/*.js",
       "!src/index.js"
     ],
-    "setupTestFrameworkScriptFile": "./test/setup.js"
+    "setupFilesAfterEnv": [
+      "./test/setup.js"
+    ]
   },
   "engines": {
     "node": ">=6.4.0"
   },
   "dependencies": {},
   "devDependencies": {
-    "babel": "^6.23.0",
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
     "babel-plugin-external-helpers": "^6.22.0",
-    "babel-preset-env": "^1.7.0",
     "benchmark": "^2.1.4",
-    "eslint": "^5.3.0",
-    "jest": "^23.6.0",
-    "jsdoc": "^3.5.5",
-    "rimraf": "^2.6.2",
-    "rollup": "^0.63.4",
-    "rollup-plugin-babel": "^3.0.7",
-    "rollup-plugin-babel-minify": "^5.0.0",
-    "rollup-plugin-node-resolve": "^3.3.0"
+    "eslint": "^5.16.0",
+    "jest": "^24.7.1",
+    "jsdoc": "^3.6.2",
+    "rimraf": "^2.6.3",
+    "rollup": "^1.10.1",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-babel-minify": "^8.0.0",
+    "rollup-plugin-node-resolve": "^4.2.3"
   }
 }
