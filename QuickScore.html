@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Class: QuickScore</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link type="text/css" rel="stylesheet" href="styles/overrides.css">
+</head>
+
+<body>
+
+<div id="main">
+    <h1 class="page-title">Class: QuickScore</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2><span class="attribs"><span class="type-signature"></span></span>QuickScore<span class="signature">(items<span class="signature-attributes">opt</span>, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h2>
+        
+            <div class="class-description"><p>A class for scoring and sorting a list of items against a query string.  Each
+item receives a floating point score between <code>0</code> and <code>1</code>.</p></div>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+    <h2>Constructor</h2>
+    
+
+    
+    <h4 class="name" id="QuickScore"><span class="type-signature"></span>new QuickScore<span class="signature">(items<span class="signature-attributes">opt</span>, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>items</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+|
+
+<span class="param-type">Array.&lt;object></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The list of items to
+score.  If the list is not a flat array of strings, a <code>keys</code> array must
+be supplied via the second parameter.  The <code>items</code> array is not modified
+by QuickScore.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+|
+
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>If the <code>items</code> parameter is
+an array of flat strings, the <code>options</code> parameter can be left out.  If
+it is a list of objects containing keys that should be scored, the
+<code>options</code> parameter must either be an array of key names or an object
+containing a <code>keys</code> property.</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>keys</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+|
+
+<span class="param-type">Array.&lt;{name: string, scorer: function()}></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>In the simplest case, an array of key names to score on the objects
+in the <code>items</code> array.  The first item in this array is considered the
+primary key, which is used to sort items when they have the same
+score.  The key name strings can point to a nested key by specifying a
+dot-delimited path to the value.  So a key <code>name</code> of <code>&quot;foo.bar&quot;</code> would
+evaluate to <code>&quot;baz&quot;</code> given an object like <code>{ foo: { bar: &quot;baz&quot; } }</code>.</p>
+<p>Each item in <code>keys</code> can instead be a <code>{name, scorer}</code> object, which
+lets you specify a different scoring function for each key.  The
+scoring function should behave as described next.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>scorer</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>An optional function that takes <code>string</code> and <code>query</code> parameters and
+returns a floating point number between 0 and 1 that represents how
+well the <code>query</code> matches the <code>string</code>.  It defaults to the
+<a href="global.html#quickScore">quickScore()</a> function in this library.</p>
+<p>If the function gets a <code>matches</code> parameter, it should fill the
+passed in array with indexes corresponding to where the query
+matches the string, as described in the <a href="QuickScore.html#search">search()</a>
+method.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>config</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>An optional object that can be passed
+to the scorer function to further customize it's behavior.  If the
+<code>scorer</code> function has a <code>createConfig()</code> method on it, the <code>QuickScore</code>
+instance will call that with the <code>config</code> value and store the result.
+This can be used to extend the <code>config</code> parameter with default values.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>minimumScore</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last"><p>An optional value that
+specifies the minimum score an item must have to appear in the results
+array returned from <a href="QuickScore.html#search">search()</a>.  Defaults to <code>0</code>,
+so items that don't match the full <code>query</code> will not be returned.  This
+value is ignored if the <code>query</code> is empty or undefined, in which case all
+items are returned, sorted alphabetically and case-insensitively.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="QuickScore.js.html">QuickScore.js</a>, <a href="QuickScore.js.html#line57">line 57</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Classes</h3>
+
+        <dl>
+            <dt><a href="QuickScore.html">QuickScore</a></dt>
+            <dd></dd>
+        </dl>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="search"><span class="type-signature"></span>search<span class="signature">(query)</span><span class="type-signature"> &rarr; {Array.&lt;object>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Scores the instance's items against the <code>query</code> and sorts them from
+highest to lowest.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>query</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The string to score each item against.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="QuickScore.js.html">QuickScore.js</a>, <a href="QuickScore.js.html#line130">line 130</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>When the instance's <code>items</code> are flat strings,
+the result objects contain the following properties:</p>
+<ul>
+<li><code>item</code>: the string that was scored</li>
+<li><code>score</code>: the floating point score of the string for the current query</li>
+<li><code>matches</code>: an array of arrays that specifies the character ranges
+where the query matched the string</li>
+</ul>
+<p>When the <code>items</code> are objects, the result objects contain:</p>
+<ul>
+<li><code>item</code>: the object that was scored</li>
+<li><code>score</code>: the highest score from among the individual key scores</li>
+<li><code>scoreKey</code>: the name of the key with the highest score, which will be
+an empty string if they're all zero</li>
+<li><code>scores</code>: a hash of the individual scores for each key</li>
+<li><code>matches</code>: a hash of arrays that specify the character ranges of the
+query match for each key</li>
+</ul>
+<p>The results array is sorted high to low on each item's score.  Items with
+identical scores are sorted alphabetically and case-insensitively on the
+primary key.  Items with scores that are &lt;= the <code>minimumScore</code> option
+(defaults to <code>0</code>) are not returned, unless the <code>query</code> is falsy, in which
+case all of the items are returned, sorted alphabetically.</p>
+<p>The arrays of start and end indices in the <code>matches</code> array can be used as
+parameters to the <code>substring()</code> method to extract the characters from
+each string that match the query.  This can then be used to format the
+matching characters with a different color or style.</p>
+<p>Each result item also contains a <code>_</code> property, which contains lowercase
+versions of the item's strings, and might contain additional internal
+metadata in the future.  It can be ignored.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;object></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="setItems"><span class="type-signature"></span>setItems<span class="signature">(items)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Sets the <code>items</code> array and caches a lowercase copy of all the item
+strings specified by the <code>keys</code> parameter to the constructor.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>items</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+|
+
+<span class="param-type">Array.&lt;object></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>List of items to score.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="QuickScore.js.html">QuickScore.js</a>, <a href="QuickScore.js.html#line252">line 252</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="setKeys"><span class="type-signature"></span>setKeys<span class="signature">(keys)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Sets the <code>keys</code> configuration.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>keys</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+|
+
+<span class="param-type">Array.&lt;object></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>List of keys to score, as
+either flat strings or <code>{key, scorer}</code> objects.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="QuickScore.js.html">QuickScore.js</a>, <a href="QuickScore.js.html#line217">line 217</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="QuickScore.html">QuickScore</a></li><li><a href="Range.html">Range</a></li></ul><h3>Global</h3><ul><li><a href="global.html#quickScore">quickScore</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Jan 20 2020 03:06:05 GMT+0000 (UTC)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
